@@ -1,0 +1,39 @@
+<div class="container my-5">
+    <h1 class="mb-3">Orders</h1>
+
+    <table class="table table-dark table-striped" *ngIf="orders && orders.length > 0">
+        <thead>
+            <tr>
+                <th>Order number</th>
+                <th>Customer</th>
+                <th>Total amount</th>
+                <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let order of orders">
+              <td>{{order.orderNr}}</td>
+              <td>{{order.customerId}}</td>
+              <td>{{order.totalAmount}}</td>
+              <td><button type="button" class="btn btn-light" (click)="editOrder(order)">Edit</button></td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td><button type="button" class="btn btn-secondary" (click)="initNewOrder()">Create order</button></td>
+            </tr>
+          </tfoot>
+    </table>
+    <div *ngIf="!orders || orders.length <= 0">
+        <p>No Orders Found</p>
+        <button type="button" class="btn btn-dark" (click)="initNewOrder()">Create order</button>
+    </div>
+    
+    
+</div>
+
+
+<app-edit-order [order]="orderToEdit" (ordersUpdated)="updateOrderList($event)"></app-edit-order>

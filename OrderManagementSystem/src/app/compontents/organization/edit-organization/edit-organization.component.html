@@ -1,0 +1,18 @@
+<div *ngIf="organization">
+    <h2>{{ organization.name }}</h2>
+    <div>
+        Name:
+        <input [(ngModel)]="organization.name" placeholder="Name"/>
+    </div>
+    <div>
+        Organization number:
+        <input [(ngModel)]="organization.organizationId" placeholder="Organization number"/>
+    </div>
+    <div>
+        Address:
+        <input [(ngModel)]="organization.adress" placeholder="Address"/>
+    </div>
+    <button (click)="updateOrganization(organization)" *ngIf="organization.id">Save</button>
+    <button (click)="deleteOrganization(organization)" *ngIf="organization.id">Delete</button>
+    <button (click)="createOrganization(organization)" *ngIf="!organization.id">Create</button>
+</div>

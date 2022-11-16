@@ -1,0 +1,13 @@
+<div *ngIf="order">
+    <h2>{{ order.orderNr }}</h2>
+    <div>
+        Customer:
+        <select class="form-select" [(ngModel)]="order.customerId" aria-label="Default select example">
+            <option [ngValue] = undefined disabled selected>Select customer</option>
+            <option *ngFor="let cus of customers" [ngValue]="cus.id">{{cus.name}}</option>
+        </select>
+    </div>
+    <button (click)="updateOrder(order)" *ngIf="order.id">Save</button>
+    <button (click)="deleteOrder(order)" *ngIf="order.id">Delete</button>
+    <button (click)="createOrder(order)" *ngIf="!order.id">Create</button>
+</div>

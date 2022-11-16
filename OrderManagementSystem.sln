@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "OrderManagementSystem", "OrderManagementSystem\OrderManagementSystem.esproj", "{191F3E41-1F10-4B62-805B-EECBFE5C56C3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderManagementSystemAPI", "OrderManagementSystemAPI\OrderManagementSystemAPI.csproj", "{5978B282-C120-4809-8E63-220835E1C2A6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{191F3E41-1F10-4B62-805B-EECBFE5C56C3}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{5978B282-C120-4809-8E63-220835E1C2A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5978B282-C120-4809-8E63-220835E1C2A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5978B282-C120-4809-8E63-220835E1C2A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5978B282-C120-4809-8E63-220835E1C2A6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E0A8461F-0ECC-40FA-8B75-4D02B70526B3}
+	EndGlobalSection
+EndGlobal

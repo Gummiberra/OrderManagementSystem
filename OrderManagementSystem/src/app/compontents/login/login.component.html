@@ -1,0 +1,58 @@
+<section class="vh-100 login" style="background-size: cover; background-repeat: no-repeat; background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80');">
+    <div class="container py-5 h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col col-xl-8">
+          <div class="card" style="border-radius: 1rem;">
+            <div class="row g-0">
+              <div class="col-md-6 col-lg-5 d-none d-md-block">
+                <img src="https://images.unsplash.com/photo-1623350970161-e036901672c0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1289&q=80"
+                  alt="login form" class="img-fluid" style="border-radius: 1rem 0 0 1rem;" />
+              </div>
+              <div class="col-md-6 col-lg-7 d-flex align-items-center">
+                <div class="card-body p-4 p-lg-5 text-black">
+                  <form [formGroup]="loginForm">
+                    <div class="d-flex align-items-center mb-3 pb-1">
+                      <fa-icon [icon]="boxIcon" class="fa-2x me-3" ></fa-icon>
+                      <span class="h1 fw-bold mb-0">OMS</span>
+                    </div>
+  
+                    <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Sign into your account</h5>
+  
+                    <div class="form-group pt-3">
+                        <div class="input-field" [class.error]="loginForm.controls['username'].dirty && loginForm.hasError('required','username')">
+                            <fa-icon [icon]="userIcon" class="p-2"></fa-icon>
+                            <input formControlName="username" type="text" placeholder="Username">
+                        </div>
+                    </div>
+                    <small class="text-danger" *ngIf="loginForm.controls['username'].dirty && loginForm.hasError('required','username')">*Username is required</small>
+                    <div class="form-group pt-3">
+                        <div class="input-field" [class.error]="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">
+                            <fa-icon [icon]="lockIcon" class="p-2"></fa-icon>
+                            <input formControlName="password" [type]="type" placeholder="Password">
+                            <fa-icon (click)="hideShowPassword()" [icon]="eyeIcon"></fa-icon>
+                        </div>
+                    </div>
+                    <small class="text-danger" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required','password')">*Password is required</small>
+                    <div class="pt-1 mb-4">
+                      <button (click)="onLogin()" class="btn btn-dark btn-lg btn-block" type="button">Login</button>
+                    </div>
+                    <div class="pt-1 mb-4">
+                        <a class="small text-muted" href="#!">Forgot password?</a>
+                    </div>
+                    <div>
+                        <div>
+                            <a href="#!" class="small text-muted pe-1">Terms of use.</a>
+                            <a href="#!" class="small text-muted">Privacy policy</a>
+                        </div>
+                            
+                    </div>
+                  </form>
+  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

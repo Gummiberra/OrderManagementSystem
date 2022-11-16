@@ -1,0 +1,27 @@
+.input-field{
+    border-radius: 5px;
+    padding:  5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    color: black;
+}
+
+input[type='text'],input[type='password']{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+}
+
+.error{
+    color: red;
+    border: 1px solid red;
+}
+
+.login{
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80');
+}

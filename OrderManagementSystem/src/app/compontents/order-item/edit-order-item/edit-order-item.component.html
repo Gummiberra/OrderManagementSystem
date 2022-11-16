@@ -1,0 +1,14 @@
+<div *ngIf="orderItem">
+    <h2>{{ orderItem.product?.name }}</h2>
+    <div>
+        Product:
+        <input [(ngModel)]="orderItem.product" placeholder="Product"/>
+    </div>
+    <div>
+        Quantity:
+        <input [(ngModel)]="orderItem.quantity" placeholder="Quantity"/>
+    </div>
+    <button (click)="updateOrderItem(orderItem)" *ngIf="orderItem.id">Save</button>
+    <button (click)="deleteOrderItem(orderItem)" *ngIf="orderItem.id">Delete</button>
+    <button (click)="createOrderItem(orderItem)" *ngIf="!orderItem.id">Create</button>
+</div>
