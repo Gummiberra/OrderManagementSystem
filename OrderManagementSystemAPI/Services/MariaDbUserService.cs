@@ -42,6 +42,10 @@ namespace OrderManagementSystemAPI.Service
             return await _dbContext.User.FirstOrDefaultAsync(x => x.Username == username);
         }
 
+        public async Task<User> FindOneByEmail(string email) {
+            return await _dbContext.User.FirstOrDefaultAsync(x => x.Email == email);
+        }
+
         public async Task<User> Authenticate(User user) {
             return await _dbContext.User.FirstOrDefaultAsync(x => x.Username == user.Username && x.Password == user.Password);
         }

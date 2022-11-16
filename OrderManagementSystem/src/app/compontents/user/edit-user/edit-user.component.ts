@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import ValidateForm from 'src/app/helpers/validateform';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
@@ -13,6 +14,7 @@ export class EditUserComponent implements OnInit {
   @Input() user?: User;
   @Output() usersUpdated = new EventEmitter<User[]>();
   userForm!: FormGroup;
+  type: string = "password";
 
   constructor(private userService: UserService, private formBuilder: FormBuilder) { }
 

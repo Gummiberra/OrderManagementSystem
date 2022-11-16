@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrderManagementSystemAPI.Helpers;
 using OrderManagementSystemAPI.Model;
 using OrderManagementSystemAPI.Service.Interface;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace OrderManagementSystemAPI.Controllers
 {
@@ -39,6 +42,17 @@ namespace OrderManagementSystemAPI.Controllers
         {
             if (userObject == null)
                 return BadRequest();
+
+            if (await _userService.FindOneByUsername(userObject.Username) != default)
+                return Conflict(new { Message = "Username already exists" });
+
+            if(await _userService.FindOneByEmail(userObject.Email) != default)
+                return Conflict(new { Message = "Email already exists" });
+
+            if(!CheckPasswordStrength(userObject.Password))
+                return UnprocessableEntity(new { Message = "Password did not meet requirements"});
+
+            userObject.Password = PasswordHasher.HashPassword(userObject.Password);
 
             var id = await _userService.Insert(userObject);
             if(id != default)
@@ -85,6 +99,20 @@ namespace OrderManagementSystemAPI.Controllers
                 return Ok(await _userService.FindAll());
             else
                 return NotFound();
+        }
+
+        /*
+         * 12 characters length
+         * 2 letters in Upper Case
+         * 1 Special Character (!@#$&*)
+         * 2 numerals (0-9)
+         * 3 letters in Lower Case
+         */
+        private bool CheckPasswordStrength(string password)
+        {
+            if (Regex.IsMatch(password, "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{12}$"))
+                return true;
+            return false;
         }
 
 
