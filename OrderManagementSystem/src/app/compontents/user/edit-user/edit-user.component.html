@@ -58,7 +58,7 @@
   
                 <div class="mt-4 pt-2">
                     <button class="btn btn-primary btn-lg" (click)="updateUser()" *ngIf="user.id">Save</button>
-                    <button class="btn btn-primary btn-lg" (click)="deleteUser()" *ngIf="user.id">Delete</button>
+                    <button class="btn btn-primary btn-lg" (click)="deleteUser(user)" *ngIf="user.id">Delete</button>
                     <button class="btn btn-primary btn-lg" (click)="createUser()" *ngIf="!user.id">Create</button>
                 </div>
   

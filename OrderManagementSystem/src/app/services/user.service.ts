@@ -22,7 +22,6 @@ export class UserService {
   }
 
   public createUser(user: User): Observable<User[]> {
-
     return this.http.post<User[]>(`${environment.apiUrl}/${this.url}/register`,user);
   }
 

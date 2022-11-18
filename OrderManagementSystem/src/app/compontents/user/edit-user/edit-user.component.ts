@@ -36,7 +36,8 @@ export class EditUserComponent implements OnInit {
         name: this.user?.name,
         username: this.user?.username,
         email: this.user?.email,
-        role: this.user?.role == '' ?  'Role' : this.user?.role
+        role: this.user?.role == '' ?  'Role' : this.user?.role,
+        organizationId: 2
         
       })
     
@@ -57,11 +58,14 @@ export class EditUserComponent implements OnInit {
       .subscribe((users: User[]) => this.usersUpdated.emit(users));
   }
 
-  deleteUser()
+  deleteUser(user:User)
   {
+    console.log("delete: " + user.id);
     this.userService
-      .deleteUser(this.userForm.value)
+      .deleteUser(user)
       .subscribe((users: User[]) => this.usersUpdated.emit(users));
+    
+      this.userForm.reset();
   }
 
   createUser()

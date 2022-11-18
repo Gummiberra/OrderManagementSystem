@@ -27,19 +27,28 @@ namespace OrderManagementSystemAPI.Helpers
 
         public static bool VerifyPassword(string password,string base64Hash)
         {
-            var hashBytes = Convert.FromBase64String(base64Hash);
-            var salt = new byte[_saltSize];
-            Array.Copy(hashBytes,0,salt, 0, _saltSize);
+            try
+            {
+                var hashBytes = Convert.FromBase64String(base64Hash);
+                var salt = new byte[_saltSize];
+                Array.Copy(hashBytes, 0, salt, 0, _saltSize);
 
-            var key = new Rfc2898DeriveBytes(password,salt, _iterations);
-            byte[] hash = key.GetBytes(_hashSize);
+                var key = new Rfc2898DeriveBytes(password, salt, _iterations);
+                byte[] hash = key.GetBytes(_hashSize);
 
-            for (int i = 0; i < _hashSize; i++) {
-                if (hashBytes[i + _saltSize] != hash[i])
-                    return false;
+                for (int i = 0; i < _hashSize; i++)
+                {
+                    if (hashBytes[i + _saltSize] != hash[i])
+                        return false;
 
+                }
+                return true;
             }
-            return true;
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+            }
         }
     }
 }

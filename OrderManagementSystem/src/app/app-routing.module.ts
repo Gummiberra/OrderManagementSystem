@@ -7,28 +7,39 @@ import { OrderListComponent } from './compontents/order/order-list/order-list.co
 import { OrganizationListComponent } from './compontents/organization/organization-list/organization-list.component';
 import { ProductListComponent } from './compontents/product/product-list/product-list.component';
 import { UserListComponent } from './compontents/user/user-list/user-list.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
     {
         path: '',
-        component: DashboardComponent
+        redirectTo: 'login',
+        pathMatch: 'full'
+    },
+    {
+        path: 'dashboard',
+        component: DashboardComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'customers',
-        component: CustomerListComponent
+        component: CustomerListComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'organization',
-        component: OrganizationListComponent
+        component: OrganizationListComponent,
+        canActivate: [AuthGuard]
     },
     {
         path: 'orders',
-        component: OrderListComponent
+        component: OrderListComponent,
+        canActivate: [AuthGuard]
     }
     ,
     {
         path: 'products',
-        component: ProductListComponent
+        component: ProductListComponent,
+        canActivate: [AuthGuard]
     }
     ,
     {
@@ -38,7 +49,8 @@ const routes: Routes = [
     ,
     {
         path: 'users',
-        component: UserListComponent
+        component: UserListComponent,
+        canActivate: [AuthGuard]
     }
 ];
 

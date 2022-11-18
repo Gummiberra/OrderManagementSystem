@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { faEyeSlash,faEye,faLock,faUser,faBoxOpen } from '@fortawesome/free-solid-svg-icons';
+import { NgToastService } from 'ng-angular-popup';
 import ValidateForm from 'src/app/helpers/validateform';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -20,7 +21,7 @@ export class LoginComponent implements OnInit {
   boxIcon = faBoxOpen;
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private toast: NgToastService) { }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -41,14 +42,17 @@ export class LoginComponent implements OnInit {
         .subscribe({
           next:(res=>{
             this.loginForm.reset();
-            this.router.navigate([''])
+            this.authService.storeToken(res.token);
+            this.toast.success({detail:"Success", summary:res.message, duration: 5000});
+            this.router.navigate(['dashboard'])
           })
           ,error: (err=>{
-            alert(err?.error.message)
+            this.toast.error({detail:"Error", summary:err.error.message, duration: 5000});
           }) 
         })
     }else{
       ValidateForm.validateAllFormFields(this.loginForm);
+
       alert("Login form is invalid");
     }
   }

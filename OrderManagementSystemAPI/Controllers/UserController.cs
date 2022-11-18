@@ -1,7 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using OrderManagementSystemAPI.Helpers;
 using OrderManagementSystemAPI.Model;
 using OrderManagementSystemAPI.Service.Interface;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -24,14 +27,15 @@ namespace OrderManagementSystemAPI.Controllers
 
             var user = await _userService.FindOneByUsername(userObject.Username);
             if(user == null)
-                return NotFound(new { Message = "User not found!"});
+                return NotFound(new { Message = "Username and/or password is invalid!"});
 
-            var authenticatedUser = await _userService.Authenticate(userObject);
+            if (!PasswordHasher.VerifyPassword(userObject.Password, user.Password))
+                return Unauthorized(new { Message = "Username and/or password is invalid!" });
 
-            if (authenticatedUser == null)
-                return Unauthorized(new { Message = "Password is invalid!"});
+            var token = CreateJwtToken(user);
 
             return Ok(new { 
+                Token = new JwtSecurityTokenHandler().WriteToken(token),
                 Message = "Login Success!"
             });
 
@@ -46,11 +50,12 @@ namespace OrderManagementSystemAPI.Controllers
             if (await _userService.FindOneByUsername(userObject.Username) != default)
                 return Conflict(new { Message = "Username already exists" });
 
-            if(await _userService.FindOneByEmail(userObject.Email) != default)
+            if (await _userService.FindOneByEmail(userObject.Email) != default)
                 return Conflict(new { Message = "Email already exists" });
 
-            if(!CheckPasswordStrength(userObject.Password))
-                return UnprocessableEntity(new { Message = "Password did not meet requirements"});
+            var pass = CheckPasswordStrength(userObject.Password);
+            if(!string.IsNullOrEmpty(pass))
+                return UnprocessableEntity(new { Message = pass.ToString() });
 
             userObject.Password = PasswordHasher.HashPassword(userObject.Password);
 
@@ -108,13 +113,40 @@ namespace OrderManagementSystemAPI.Controllers
          * 2 numerals (0-9)
          * 3 letters in Lower Case
          */
-        private bool CheckPasswordStrength(string password)
+        private string CheckPasswordStrength(string password)
         {
-            if (Regex.IsMatch(password, "^(?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{12}$"))
-                return true;
-            return false;
+            StringBuilder sb = new StringBuilder();
+            if(password.Length < 12)
+                sb.Append("Minimum password length should be 12" + Environment.NewLine);
+            if (!Regex.IsMatch(password, "^(?=.*[A-Z].*[A-Z])"))
+                sb.Append("Password should contain 2 uppercase letters" + Environment.NewLine);
+            if (!Regex.IsMatch(password, "^(?=.*[!@#$&*])"))
+                sb.Append("Password should contain 1 specialcharacters" + Environment.NewLine);
+            if (!Regex.IsMatch(password, "^(?=.*[0-9].*[0-9])"))
+                sb.Append("Password should contain 2 numbers" + Environment.NewLine);
+            if (!Regex.IsMatch(password, "^(?=.*[a-z].*[a-z].*[a-z])"))
+                sb.Append("Password should contain 2 numbers" + Environment.NewLine);
+            return sb.ToString();
         }
 
+        private JwtSecurityToken CreateJwtToken(User user)
+        {
+            var identity = new List<Claim> {
+                new Claim(ClaimTypes.Role, user.Role),
+                new Claim(ClaimTypes.Name, user.Name),
+                new Claim(ClaimTypes.Email, user.Email)
+            };
+
+            var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("testKeyforThewin"));
+
+            var token = new JwtSecurityToken(
+                expires: DateTime.Now.AddDays(1),
+                claims: identity,
+                signingCredentials: new SigningCredentials(authSigningKey, SecurityAlgorithms.HmacSha256)
+                );
+
+            return token;
+        }
 
     }
 }

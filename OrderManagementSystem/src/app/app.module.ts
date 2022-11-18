@@ -1,4 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -18,6 +18,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { DashboardComponent } from './compontents/dashboard/dashboard.component';
 import { UserListComponent } from './compontents/user/user-list/user-list.component';
 import { EditUserComponent } from './compontents/user/edit-user/edit-user.component';
+import { NgToastModule } from 'ng-angular-popup';
+import { NavMenuComponent } from './compontents/nav-menu/nav-menu.component';
+import { TokenInterceptor } from './interceptors/token.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +37,8 @@ import { EditUserComponent } from './compontents/user/edit-user/edit-user.compon
     LoginComponent,
     DashboardComponent,
     UserListComponent,
-    EditUserComponent
+    EditUserComponent,
+    NavMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +46,14 @@ import { EditUserComponent } from './compontents/user/edit-user/edit-user.compon
     AppRoutingModule,
     FormsModule,
     FontAwesomeModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgToastModule
   ],
-  providers: [],
+  providers: [{
+    provide:HTTP_INTERCEPTORS,
+    useClass: TokenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
