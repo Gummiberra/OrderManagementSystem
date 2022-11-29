@@ -21,6 +21,11 @@ export class OrderItemService {
     return this.http.get<OrderItem[]>(`${environment.apiUrl}/${this.url}`);
   }
 
+  public getOrderItem(id:string): Observable<OrderItem> {
+
+    return this.http.get<OrderItem>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
+
   public updateOrderItem(item: OrderItem): Observable<OrderItem[]> {
 
     return this.http.put<OrderItem[]>(`${environment.apiUrl}/${this.url}`,item);

@@ -1,7 +1,7 @@
-<div class="container my-5">
+<div id="table-div" class="container my-5">
     <h1 class="mb-3">Orders</h1>
 
-    <table class="table table-dark table-striped" *ngIf="orders && orders.length > 0">
+    <table id="table" class="table table-striped" *ngIf="orders && orders.length > 0">
         <thead>
             <tr>
                 <th>Order number</th>
@@ -15,21 +15,13 @@
               <td>{{order.orderNr}}</td>
               <td>{{order.customerId}}</td>
               <td>{{order.totalAmount}}</td>
-              <td><button type="button" class="btn btn-light" (click)="editOrder(order)">Edit</button></td>
+              <td><button type="button" class="btn btn-outline-secondary" (click)="editOrder(order)">Edit</button></td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button type="button" class="btn btn-secondary" (click)="initNewOrder()">Create order</button></td>
-            </tr>
-          </tfoot>
     </table>
-    <div *ngIf="!orders || orders.length <= 0">
-        <p>No Orders Found</p>
-        <button type="button" class="btn btn-dark" (click)="initNewOrder()">Create order</button>
+    <div >
+        <p *ngIf="!orders || orders.length <= 0">No Orders Found</p>
+        <button type="button" class="btn btn-outline-secondary" (click)="initNewOrder()">Create order</button>
     </div>
     
     

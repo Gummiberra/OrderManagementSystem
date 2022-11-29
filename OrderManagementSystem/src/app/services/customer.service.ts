@@ -11,8 +11,13 @@ export class CustomerService {
   private url = "customer";
   constructor(private http: HttpClient) { }
 
+
   public getCustomers(): Observable<Customer[]> {
     return this.http.get<Customer[]>(`${environment.apiUrl}/${this.url}`);
+  }
+
+  public getCustomer(id : string): Observable<Customer> {
+    return this.http.get<Customer>(`${environment.apiUrl}/${this.url}/${id}`);
   }
 
   public updateCustomer(cus: Customer): Observable<Customer[]> {

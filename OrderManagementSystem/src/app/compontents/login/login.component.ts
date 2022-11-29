@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit {
   boxIcon = faBoxOpen;
   loginForm!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private toast: NgToastService) { }
+  constructor(private formBuilder: FormBuilder, private authService: AuthService, private router: Router, private toast: NgToastService) { 
+  }
 
   ngOnInit(): void {
     this.loginForm = this.formBuilder.group({
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
           next:(res=>{
             this.loginForm.reset();
             this.authService.storeToken(res.token);
+            console.log(this.authService.getRole());
             this.toast.success({detail:"Success", summary:res.message, duration: 5000});
             this.router.navigate(['dashboard'])
           })

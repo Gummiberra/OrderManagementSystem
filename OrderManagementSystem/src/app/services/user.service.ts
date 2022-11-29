@@ -16,6 +16,10 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/${this.url}`);
   }
 
+  public getUser(id:string): Observable<User> {
+    return this.http.get<User>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
+
   public updateUser(user: User): Observable<User[]> {
 
     return this.http.put<User[]>(`${environment.apiUrl}/${this.url}`,user);

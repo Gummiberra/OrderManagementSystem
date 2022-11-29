@@ -1,1 +1,44 @@
 /* You can add global styles to this file, and also import other style files */
+#table-div {
+    border-radius: 15px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+
+}
+
+#table{
+    --bs-table-border-color: black;
+}
+
+.formButton{
+    margin-right:10px;
+    margin-top:10px;
+}
+
+.input-field{
+    border-radius: 5px;
+    padding:  5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    border: 1px solid #ddd;
+    color: black;
+}
+
+input[type='text'],input[type='password'],input[type='number']{
+    border: none;
+    outline: none;
+    box-shadow: none;
+    width: 100%;
+}
+
+.formContainer{
+    border-radius: 15px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.formBody{
+    background-color: white;
+    border-radius: 15px;
+}

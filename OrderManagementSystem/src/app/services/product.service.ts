@@ -21,6 +21,11 @@ export class ProductService {
     return this.http.get<Product[]>(`${environment.apiUrl}/${this.url}`);
   }
 
+  public getProduct(id:string): Observable<Product> {
+
+    return this.http.get<Product>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
+
   public updateProduct(prod: Product): Observable<Product[]> {
 
     return this.http.put<Product[]>(`${environment.apiUrl}/${this.url}`,prod);

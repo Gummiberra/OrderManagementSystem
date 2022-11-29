@@ -1,7 +1,7 @@
-<div class="container my-5">
+<div id="table-div" class="container my-5">
     <h1 class="mb-3">Organization</h1>
 
-    <table class="table table-dark table-striped" *ngIf="organizations && organizations.length > 0">
+    <table id="table" class="table table-striped" *ngIf="organizations && organizations.length > 0">
         <thead>
             <tr>
                 <th>Name</th>
@@ -15,25 +15,14 @@
               <td>{{org.name}}</td>
               <td>{{org.organizationId}}</td>
               <td>{{org.adress}}</td>
-              <td><button type="button" class="btn btn-light" (click)="editOrganization(org)">Edit</button></td>
+              <td><button type="button" class="btn btn-outline-secondary" (click)="editOrganization(org)">Edit</button></td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button type="button" class="btn btn-secondary" (click)="initNewOrganization()">Create organization</button></td>
-            </tr>
-          </tfoot>
     </table>
-    <div *ngIf="!organizations || organizations.length <= 0">
-        <p>No Organizations Found</p>
-        <button type="button" class="btn btn-dark" (click)="initNewOrganization()">Create organization</button>
+    <div >
+        <p *ngIf="!organizations || organizations.length <= 0">No Organizations Found</p>
+        <button type="button" class="btn btn-outline-secondary" (click)="initNewOrganization()">Create organization</button>
     </div>
     
     
 </div>
-
-
-<app-edit-organization [organization]="orgToEdit" (organizationsUpdated)="updateOrganizationList($event)"></app-edit-organization>

@@ -21,6 +21,10 @@ export class OrganizationService {
     return this.http.get<Organization[]>(`${environment.apiUrl}/${this.url}`);
   }
 
+  public getOrganization(id : string): Observable<Organization> {
+    return this.http.get<Organization>(`${environment.apiUrl}/${this.url}/${id}`);
+  }
+
   public updateOrganization(org: Organization): Observable<Organization[]> {
 
     return this.http.put<Organization[]>(`${environment.apiUrl}/${this.url}`,org);

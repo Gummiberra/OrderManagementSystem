@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Product } from 'src/app/models/product';
 import { ProductService } from 'src/app/services/product.service';
 
@@ -11,7 +12,7 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   productToEdit?: Product;
 
-  constructor(private productService: ProductService) { }
+  constructor(private productService: ProductService, private router: Router) { }
 
   ngOnInit(): void {
     this.productService.getProducts().subscribe((result: Product[]) => (this.products = result));
@@ -24,11 +25,11 @@ export class ProductListComponent implements OnInit {
 
   initNewProduct()
   {
-    this.productToEdit = new Product();
+    this.router.navigate(['product']);
   }
 
   editProduct(product: Product)
   {
-    this.productToEdit = product;
+    this.router.navigate(['product',product.id]);
   }
 }

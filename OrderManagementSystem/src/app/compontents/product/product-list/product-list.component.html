@@ -1,11 +1,12 @@
-<div class="container my-5">
+<div id="table-div" class="container my-5">
     <h1 class="mb-3">Products</h1>
 
-    <table class="table table-dark table-striped" *ngIf="products && products.length > 0">
+    <table id="table" class="table table-striped" *ngIf="products && products.length > 0">
         <thead>
             <tr>
                 <th>Name</th>
                 <th>Price</th>
+                <th>Quantity</th>
                 <th></th>
             </tr>
           </thead>
@@ -13,25 +14,15 @@
             <tr *ngFor="let prod of products">
               <td>{{prod.name}}</td>
               <td>{{prod.price}}</td>
-              <td><button type="button" class="btn btn-light" (click)="editProduct(prod)">Edit</button></td>
+              <td>{{prod.quantity}}</td>
+              <td><button type="button" class="btn btn-outline-secondary" (click)="editProduct(prod)">Edit</button></td>
             </tr>
           </tbody>
-          <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td><button type="button" class="btn btn-secondary" (click)="initNewProduct()">Create product</button></td>
-            </tr>
-          </tfoot>
     </table>
-    <div *ngIf="!products || products.length <= 0">
-        <p>No Products Found</p>
-        <button type="button" class="btn btn-dark" (click)="initNewProduct()">Create Product</button>
+    <div >
+        <p *ngIf="!products || products.length <= 0">No Products Found</p>
+        <button type="button" class="btn btn-outline-secondary" (click)="initNewProduct()">Create Product</button>
     </div>
     
     
 </div>
-
-
-<app-edit-product [product]="productToEdit" (productsUpdated)="updateProductList($event)"></app-edit-product>

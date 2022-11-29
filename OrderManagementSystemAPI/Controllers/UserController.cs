@@ -36,6 +36,7 @@ namespace OrderManagementSystemAPI.Controllers
 
             return Ok(new { 
                 Token = new JwtSecurityTokenHandler().WriteToken(token),
+                Role = user.Role,
                 Message = "Login Success!"
             });
 
@@ -134,7 +135,8 @@ namespace OrderManagementSystemAPI.Controllers
             var identity = new List<Claim> {
                 new Claim(ClaimTypes.Role, user.Role),
                 new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.Email, user.Email)
+                new Claim(ClaimTypes.Email, user.Email),
+                new Claim("OrgID", user.OrganizationId.ToString())
             };
 
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("testKeyforThewin"));

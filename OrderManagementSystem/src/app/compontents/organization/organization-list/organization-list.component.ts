@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Organization } from 'src/app/models/organization';
 import { OrganizationService } from 'src/app/services/organization.service';
 
@@ -12,11 +13,13 @@ export class OrganizationListComponent implements OnInit {
   organizations: Organization[] = [];
   orgToEdit?: Organization;
 
-  constructor(private organizationService: OrganizationService) { }
+  constructor(private organizationService: OrganizationService, private router: Router) { }
 
   ngOnInit(): void {
     this.organizationService.getOrganizations().subscribe((result: Organization[]) => (this.organizations = result));
   }
+
+ 
 
   updateOrganizationList(organizations: Organization[])
   {
@@ -25,12 +28,12 @@ export class OrganizationListComponent implements OnInit {
 
   initNewOrganization()
   {
-    this.orgToEdit = new Organization();
+    this.router.navigate(['organization']);
   }
 
   editOrganization(org: Organization)
   {
-    this.orgToEdit = org;
+    this.router.navigate(['organization' , org.id]);
   }
 
 }

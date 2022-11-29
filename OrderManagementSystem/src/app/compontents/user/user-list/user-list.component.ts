@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +12,7 @@ export class UserListComponent implements OnInit {
   users: User[] = [];
   userToEdit?: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
     this.userService.getUsers().subscribe((result: User[]) => (this.users = result));
@@ -24,11 +25,11 @@ export class UserListComponent implements OnInit {
 
   initNewUser()
   {
-    this.userToEdit = new User();
+    this.router.navigate(['user']);
   }
 
   editUser(user: User)
   {
-    this.userToEdit = user;
+    this.router.navigate(['user', user.id]);
   }
 }
